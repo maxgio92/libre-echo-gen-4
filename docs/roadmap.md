@@ -2,6 +2,8 @@
 
 Goal: run a free OS on the Amazon Echo 4th gen (model L4S3RE, codename `laser`, MediaTek MT8512) for local audio, with Alexa and Amazon services removed and the microphone left disabled.
 
+Scope: experimental right-to-repair work on a single, privately owned device, kept disconnected from any network during experiments. The aim is running owner-controlled free software on owned hardware, not attacking devices the owner does not own.
+
 The plans are OpenSpec changes under `openspec/changes/`. Each has a proposal (why/what), specs (what must be true), design (how), and tasks (ordered checklist). View one with `openspec show <name>` or read its folder.
 
 ## The three plans, in dependency order

@@ -1,3 +1,7 @@
+## Scope and authorization
+
+This is experimental right-to-repair work on a single, privately owned Echo 4. The boot-path work loads an owner-supplied free OS onto hardware the owner possesses. All experiments run on a device kept disconnected from any network. The goal is running local software the owner controls, not defeating protection on devices the owner does not own, extracting third-party secrets, or any fleet-scale action.
+
 ## Why
 
 LibreEcho already runs on the Echo Gen 2 (MT8163, `Radar/Puffin`). Its kernel and platform repos cleanly separate the generic Linux base from board-specific code, so a new board is an additive port, not a rewrite. The Echo 4 (`laser`, MT8512) needs its own board folder: kernel support, device tree, audio, LED/GPIO, and boot packaging. This change lays out that folder and the port plan, so implementation is ordered by dependency and gated on the two hard blockers (unproven boot chain, unknown audio path).
