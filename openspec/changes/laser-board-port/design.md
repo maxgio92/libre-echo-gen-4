@@ -47,4 +47,4 @@ Rollback: all experiments use BROM download mode as the recovery path; nothing p
 
 ## Open Questions
 
-- Which exact MT8512 boot path is viable (Fenrir-style `bl2_ext` bypass, an unlockable bootloader, or another route)? This is M0's job to answer; it does not change the milestone order.
+- Which exact MT8512 boot path is viable? Primary candidate: BROM / Download-Agent code-exec (mtk_uartboot, mtkclient-style DA exploit), which first needs the BROM-auth state (signed-DA requirement) checked. Secondary: the Fenrir-style `bl2_ext` bypass, only if the bootloader can be unlocked. This is M0's job to answer; it does not change the milestone order.

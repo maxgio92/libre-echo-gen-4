@@ -26,7 +26,11 @@ The order is not a clean 1-2-3: plan 2 and plan 3 interleave. Plan 2's probe pha
 - **Boot chain unproven.** No owner-code path on the Echo 4 is demonstrated. The primary candidate is the MT8512 BROM / Download-Agent layer (mtk_uartboot, mtkclient-style DA exploits); the Fenrir `bl2_ext` bypass is a secondary path that needs an already-unlocked bootloader, which a locked appliance may never expose. MediaTek BROM authentication (signed-DA requirement) could also block download mode. Plan 3 milestone M0 tests this first; if it fails, the port stops at a documented result.
 - **Audio path unknown.** Codec, amplifier, DSP, I2S/TDM routing, and GPIOs are unidentified. Plan 2 resolves this; plan 3 audio depends on it.
 
-## Working the plans
+## Where the effort and risk concentrate
+
+The whole port rides on one unknown: the MT8512 BROM-auth state on this device (task 0.1). If Secure Boot is fused on and the BROM demands a signed Download Agent, download mode rejects owner code, and no plan-1 or plan-2 document work changes that. The project then ends at M0 with a documented result.
+
+No FCC exhibit or datasheet can answer this. Only the device can, and only at M0. So all recon (plan 1, plan 2 document phase) is low-cost paperwork that pays off only if this single probe succeeds. Effort estimates before M0 are unknowable: M0 could take a day (the device drops into an exploitable BROM) or require its own BROM exploit (weeks to months, or never). Treat everything upstream of M0 as cheap; treat M0 as the go/no-go gate for the entire port.
 
 - Start: `openspec show fcc-exhibit-extraction`
 - Implement: `/opsx:apply <change-name>`
