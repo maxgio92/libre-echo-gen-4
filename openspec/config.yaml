@@ -1,0 +1,74 @@
+schema: spec-driven
+
+context: |
+  Project: libre-echo-gen-4. Port LibreEcho (FOSS Linux for Amazon Echo)
+  to the Amazon Echo 4th gen so it runs a free OS for local audio, with
+  Alexa and Amazon services removed.
+
+  Target device:
+  - Echo 4 (full-size), model L4S3RE, codename laser, FCC ID 2AVVJ-5273.
+  - SoC: MediaTek MT8512, plus an AZ1 element.
+  - Radios: Wi-Fi 802.11 a/b/g/n/ac dual-band, BT BR/EDR/LE, Zigbee,
+    900-MHz FSK/LoRa.
+  - Audio: 3" woofer + 2x 0.8" tweeters, 3.5mm jack; separate speaker
+    assembly.
+  - Two boards: main compute PCB (MT8512/radio) and a circular control
+    board.
+
+  Scope: keep MT8512, RAM, storage, Wi-Fi, audio, LED ring, power mgmt.
+  Drop or disable Alexa, wake word, speech capture, Amazon services, and
+  initially Zigbee/Sidewalk. Do not rewrite Linux.
+
+  Reuse LibreEcho structure as the blueprint:
+  - Kernel repo: Linux 6.1.178-derived, board drivers + DT/DTS + config
+    (currently MT8163 for Echo Gen 2 Radar/Puffin).
+  - Platform repo: initramfs, recovery image, boot envelope, OTA/update,
+    owner-local firmware import.
+  - Planned tree: a laser/ folder with MT8512 kernel support, Echo-4 DTS,
+    firmware handling, audio, GPIO/LED, boot packaging.
+
+  Gen-2 audio contract from hardware validation (template to rediscover
+  for Gen 4): 48 kHz, S16_LE, 2-channel transport, mono duplicated to
+  L/R, PCM 23, codec+speaker routes, clock config, crossover.
+
+  Two hard blockers:
+  1. Boot chain unproven. MT8512 Fenrir direction (preloader skips
+     bl2_ext verification) is demonstrated on phones/tablets, not Echo 4.
+     Proving the Echo 4 accepts an arbitrary kernel comes first.
+  2. Audio path unknown. Codec, amplifier, DSP, I2S/TDM routing, GPIO
+     assignments all unidentified.
+
+  Recon before teardown: exhaust FCC exhibits first (19 internal photos,
+  block diagram, schematics, operational description, parts list,
+  security statement) before opening the device.
+
+# Project context (optional)
+# This is shown to AI when creating artifacts.
+# Add your tech stack, conventions, style guides, domain knowledge, etc.
+# Example:
+#   context: |
+#     Tech stack: TypeScript, React, Node.js
+#     We use conventional commits
+#     Domain: e-commerce platform
+
+# Per-artifact rules (optional)
+# Add custom rules for specific artifacts.
+# Example:
+#   rules:
+#     proposal:
+#       - Keep proposals under 500 words
+#       - Always include a "Non-goals" section
+#     tasks:
+#       - Break tasks into chunks of max 2 hours
+
+# Per-operation guidance (optional)
+# Add advisory guidance for how apply and archive work should be conducted.
+# This is separate from artifact rules above.
+# Example:
+#   operations:
+#     apply:
+#       guidance:
+#         - Keep test summaries concise
+#     archive:
+#       guidance:
+#         - Summarize the archive outcome before finishing
